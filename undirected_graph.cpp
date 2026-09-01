@@ -23,6 +23,28 @@ public:
         }
 
     }
+    // BFS traversal
+    void bfs() {
+         queue<int> q;
+         vector<bool> vis(V,false);
+
+         q.push(0);
+         vis[0] = true;
+         while(q.size() > 0){
+            int u = q.front();
+
+            cout<< u << " ";
+            q.pop();
+
+            for(int v : l[u]){ //immidiate neighour or each value from that container is temporary stored in v
+                if(!vis[v]){
+                    vis[v] = true;
+                    q.push(v);
+                }
+            }
+         }
+         cout<< endl;
+    }
 
 };
 int main(){
@@ -35,6 +57,7 @@ int main(){
     g.addEdge(2,4);
 
     g.printAdjList();
+    g.bfs();
     return 0;
 
 }
