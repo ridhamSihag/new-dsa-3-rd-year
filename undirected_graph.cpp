@@ -46,6 +46,26 @@ public:
          cout<< endl;
     }
 
+    //DFS Traversal
+    void dfsHelp(int u , vector<bool>&visit){
+        cout<< u << " ";
+        visit[u] = true;
+
+        for(int v : l[u]){
+            if(!visit[v]){
+                dfsHelp(v , visit);
+            }
+        }
+
+    }
+    void dfs(){
+        int src = 0;
+        vector<bool> visit(V , false);
+        dfsHelp(src , visit);
+
+    }
+
+
 };
 int main(){
     Graph g(5);
@@ -58,6 +78,7 @@ int main(){
 
     g.printAdjList();
     g.bfs();
+    g.dfs();
     return 0;
 
 }
