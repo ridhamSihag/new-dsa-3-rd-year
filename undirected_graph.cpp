@@ -62,11 +62,48 @@ public:
         int src = 0;
         vector<bool> visit(V , false);
         dfsHelp(src , visit);
+        cout<< endl;
 
     }
 
 
+    //Detect cycle in graph
+    bool detect_cycle(int src ,int par , vector<bool> &visit){
+        visit[src] = true;
+        list<int> neighours = l[src];
+
+        for(int v : neighours){
+            if(!visit[v]){
+                visit[v] = true;
+                if(detect_cycle(v , src , visit)){
+                    return true;
+                }
+
+            }
+            else if(v != par){
+                return true;
+            }
+        }
+        return false;
+
+
+    }
+
+    bool iscycle(){
+        vector<bool> visit(V ,false);
+        for(int i = 0 ; i<V ; i++){
+            if(!visit[i]){
+                if(detect_cycle(i , -1 , visit)){
+                    return true;
+                }
+            }
+        }
+        return false;
+
+    }
+
 };
+
 int main(){
     Graph g(5);
 
@@ -79,6 +116,7 @@ int main(){
     g.printAdjList();
     g.bfs();
     g.dfs();
+    cout<< g.iscycle() <<endl;
     return 0;
 
 }
